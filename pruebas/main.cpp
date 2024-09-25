@@ -1,26 +1,39 @@
-int billetes[6] = {0}; // Para almacenar los billetes de 1000, 2000, 5000, 10000, 20000, 50000
-int monedas[4] = {0};  // Para almacenar las monedas de 50, 100, 200, 500
-int faltante = 0;
-int cantdinero;
+#include <QCoreApplication>
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
-cout << "Ingresa el valor de cantidad de dinero: ";
-cin >> cantdinero;
+int main(int argc, char *argv[]) {
+    QCoreApplication a(argc, argv);
 
-// Llamada a la función para calcular billetes y monedas
-calcular(cantdinero, billetes, monedas, &faltante);
+    srand(static_cast<unsigned int>(time(0)));  // Inicializa la semilla para números aleatorios
 
-// Mostrar el resultado
-cout << "50000 : " << billetes[0] << endl;
-cout << "20000 : " << billetes[1] << endl;
-cout << "10000 : " << billetes[2] << endl;
-cout << "5000  : " << billetes[3] << endl;
-cout << "2000  : " << billetes[4] << endl;
-cout << "1000  : " << billetes[5] << endl;
-cout << "500   : " << monedas[0] << endl;
-cout << "200   : " << monedas[1] << endl;
-cout << "100   : " << monedas[2] << endl;
-cout << "50    : " << monedas[3] << endl;
-cout << "Faltante: " << faltante << endl;
+    const int tamanoArreglo = 200;
+    char letras[tamanoArreglo];
+    int contadorLetras[26] = {0};  // Arreglo para contar la frecuencia de cada letra
 
-return 0;
+    // Llenar el arreglo con letras aleatorias
+    for (int i = 0; i < tamanoArreglo; ++i) {
+        letras[i] = 'A' + rand() % 26;  // Genera letras aleatorias de 'A' a 'Z'
+    }
+
+    // Imprimir el arreglo de letras
+    for (int i = 0; i < tamanoArreglo; ++i) {
+        std::cout << letras[i];
+    }
+    std::cout << std::endl;
+
+    // Contar la frecuencia de cada letra
+    for (int i = 0; i < tamanoArreglo; ++i) {
+        contadorLetras[letras[i] - 'A']++;  // Incrementa el conteo basado en la letra
+    }
+
+    // Imprimir cuántas veces se repite cada letra
+    for (int i = 0; i < 26; ++i) {
+        if (contadorLetras[i] > 0) {
+            std::cout << static_cast<char>('A' + i) << ": " << contadorLetras[i] << std::endl;
+        }
+    }
+
+    return a.exec();
 }

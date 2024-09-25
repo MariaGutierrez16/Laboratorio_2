@@ -18,6 +18,7 @@ int main() {
 
         switch (opcion){
         case 1:{
+            cout<<"Ejecutando el problema 1 ..."<<endl;
             int billetes[6] = {0}; // Para almacenar los billetes de 1000, 2000, 5000, 10000, 20000, 50000
             int monedas[4] = {0};  // Para almacenar las monedas de 50, 100, 200, 500
             int faltante = 0;
