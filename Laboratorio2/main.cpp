@@ -4,6 +4,7 @@
 using namespace std;
 
 bool compararCadenas(const char* cadena1, const char* cadena2);
+int convertirACadena(const char* cadena);
 
 int main() {
 
@@ -16,6 +17,7 @@ int main() {
         cout<< "1.Problema 1"<<endl;
         cout<< "2.Problema 2"<<endl;
         cout<< "3.Problema 3"<<endl;
+        cout<< "4.Problema 4"<<endl;
         cout<< "0. Salir"<<endl;
         cin>>opcion;
 
@@ -117,6 +119,13 @@ int main() {
 
         }
         break;
+        case 4:{
+            const char cadena[] = "123";
+            int resultado = convertirACadena(cadena);
+            std::cout << "El número es: " << resultado << std::endl;
+
+        }
+        break;
 
         default:
             if(opcion!=0)
@@ -157,4 +166,12 @@ bool compararCadenas(const char* cadena1, const char* cadena2) {
     }
 
     return true;
+}
+int convertirACadena(const char* cadena) {
+    int numero = 0;
+    while (*cadena) {
+        numero = numero * 10 + (*cadena - '0');
+        cadena++;
+    }
+    return numero;
 }
