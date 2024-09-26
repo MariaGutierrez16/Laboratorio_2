@@ -6,6 +6,7 @@ using namespace std;
 bool compararCadenas(const char* cadena1, const char* cadena2);
 int convertirACadena(const char* cadena);
 void convertirEnteroACadena(int numero, char* cadena);
+void convertirMayusculas(char* cadena);
 
 int main() {
 
@@ -20,6 +21,8 @@ int main() {
         cout<< "3.Problema 3"<<endl;
         cout<< "4.Problema 4"<<endl;
         cout<< "5.Problema 5"<<endl;
+        cout<< "6.Problema 6"<<endl;
+
         cout<< "0. Salir"<<endl;
         cin>>opcion;
 
@@ -122,21 +125,51 @@ int main() {
         }
         break;
         case 4:{
-            const char cadena[] = "123";
-            int resultado = convertirACadena(cadena);
-            std::cout << "El número es: " << resultado << std::endl;
+            cout<<"Ejecutando el problema 4 ..."<<endl;
+
+            char cadena[100];
+            std::cout << "Introduce una cadena de caracteres numericos: ";
+            std::cin >> cadena;
+            int numero = convertirACadena(cadena);
+            std::cout << "El número convertido es: " << numero << std::endl;
 
         }
         break;
         case 5:{
-            int numero = 123;
-            char cadena[12];  // Espacio suficiente para un entero con signo
+            cout<<"Ejecutando el problema 5 ..."<<endl;
+
+            int numero;
+            char cadena[12]; // Suficiente para almacenar un entero de 32 bits y el signo
+
+            std::cout << "Introduce un numero: ";
+            std::cin >> numero;
+
             convertirEnteroACadena(numero, cadena);
-            std::cout << "El numero convertido es: " << cadena << std::endl;
+
+            std::cout << "El numero convertido a cadena es: " << cadena << std::endl;
 
         }
         break;
+        case 6:{
+            cout<<"Ejecutando el problema 6 ..."<<endl;
 
+            char cadena[100];
+            int i = 0;
+
+            std::cout << "Ingrese una palabra: ";
+            while (i < 99 && (cadena[i] = std::cin.get()) != '\n') {
+                ++i;
+            }
+            cadena[i] = '\0';
+
+            std::cout << "Original: " << cadena << std::endl;
+
+            convertirMayusculas(cadena);
+
+            std::cout << "En mayúscula: " << cadena << std::endl;
+
+        }
+        break;
         default:
             if(opcion!=0)
                 cout<<"opcion no valida"<<endl;
@@ -185,34 +218,42 @@ int convertirACadena(const char* cadena) {
     }
     return numero;
 }
+// Función para convertir un entero a una cadena de caracteres
 void convertirEnteroACadena(int numero, char* cadena) {
     int indice = 0;
     bool esNegativo = false;
 
+    // Manejar el caso de número negativo
     if (numero < 0) {
         esNegativo = true;
         numero = -numero;
     }
 
+    // Convertir cada dígito del número a carácter
     do {
         cadena[indice++] = (numero % 10) + '0';
         numero /= 10;
     } while (numero > 0);
 
+    // Añadir el signo negativo si es necesario
     if (esNegativo) {
         cadena[indice++] = '-';
     }
 
+    // Añadir el carácter nulo al final de la cadena
     cadena[indice] = '\0';
 
-    // Invertir el arreglo para que quede en el orden correcto
-    int inicio = 0;
-    int fin = indice - 1;
-    while (inicio < fin) {
-        char temp = cadena[inicio];
-        cadena[inicio] = cadena[fin];
-        cadena[fin] = temp;
-        inicio++;
-        fin--;
+    // Invertir la cadena
+    for (int i = 0; i < indice / 2; ++i) {
+        char temp = cadena[i];
+        cadena[i] = cadena[indice - i - 1];
+        cadena[indice - i - 1] = temp;
+    }
+}
+void convertirMayusculas(char* cadena) {
+    for (int i = 0; cadena[i] != '\0'; ++i) {
+        if (cadena[i] >= 'a' && cadena[i] <= 'z') {
+            cadena[i] = cadena[i] - ('a' - 'A');
+        }
     }
 }
