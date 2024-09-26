@@ -7,6 +7,8 @@ bool compararCadenas(const char* cadena1, const char* cadena2);
 int convertirACadena(const char* cadena);
 void convertirEnteroACadena(int numero, char* cadena);
 void convertirMayusculas(char* cadena);
+void eliminarRepetidos(char* cadena);
+void separarNumeros(const char* entrada, char* texto, char* numeros);
 
 int main() {
 
@@ -22,6 +24,8 @@ int main() {
         cout<< "4.Problema 4"<<endl;
         cout<< "5.Problema 5"<<endl;
         cout<< "6.Problema 6"<<endl;
+        cout<< "7.Problema 7"<<endl;
+        cout<< "8.Problema 8"<<endl;
 
         cout<< "0. Salir"<<endl;
         cin>>opcion;
@@ -154,19 +158,47 @@ int main() {
             cout<<"Ejecutando el problema 6 ..."<<endl;
 
             char cadena[100];
-            int i = 0;
 
             std::cout << "Ingrese una palabra: ";
-            while (i < 99 && (cadena[i] = std::cin.get()) != '\n') {
-                ++i;
-            }
-            cadena[i] = '\0';
+            std::cin >> cadena;
 
             std::cout << "Original: " << cadena << std::endl;
 
             convertirMayusculas(cadena);
 
-            std::cout << "En mayúscula: " << cadena << std::endl;
+            std::cout << "En mayuscula: " << cadena << std::endl;
+
+        }
+        break;
+        case 7:{
+            cout<<"Ejecutando el problema 7 ..."<<endl;
+            char cadena[100];
+
+            std::cout << "Ingrese una palabra: ";
+            std::cin >> cadena;
+
+            std::cout << "Original: " << cadena << std::endl;
+
+            eliminarRepetidos(cadena);
+
+            std::cout << "Sin repetidos: " << cadena << std::endl;
+        }
+        break;
+        case 8:{
+            cout<<"Ejecutando el problema 8 ..."<<endl;
+            char entrada[100];
+            char texto[100];
+            char numeros[100];
+
+            std::cout << "Ingrese una palabra: ";
+            std::cin >> entrada;
+
+            std::cout << "Original: " << entrada << std::endl;
+
+            separarNumeros(entrada, texto, numeros);
+
+            std::cout << "Texto: " << texto << std::endl;
+            std::cout << "Numero: " << numeros << std::endl;
 
         }
         break;
@@ -256,4 +288,32 @@ void convertirMayusculas(char* cadena) {
             cadena[i] = cadena[i] - ('a' - 'A');
         }
     }
+}
+void eliminarRepetidos(char* cadena) {
+    int index = 0;
+    for (int i = 0; cadena[i] != '\0'; ++i) {
+        bool repetido = false;
+        for (int j = 0; j < i; ++j) {
+            if (cadena[i] == cadena[j]) {
+                repetido = true;
+                break;
+            }
+        }
+        if (!repetido) {
+            cadena[index++] = cadena[i];
+        }
+    }
+    cadena[index] = '\0';
+}
+void separarNumeros(const char* entrada, char* texto, char* numeros) {
+    int j = 0, k = 0;
+    for (int i = 0; entrada[i] != '\0'; ++i) {
+        if (entrada[i] >= '0' && entrada[i] <= '9') {
+            numeros[j++] = entrada[i];
+        } else {
+            texto[k++] = entrada[i];
+        }
+    }
+    texto[k] = '\0';
+    numeros[j] = '\0';
 }
