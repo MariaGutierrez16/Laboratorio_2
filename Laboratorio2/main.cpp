@@ -5,6 +5,7 @@ using namespace std;
 
 bool compararCadenas(const char* cadena1, const char* cadena2);
 int convertirACadena(const char* cadena);
+void convertirEnteroACadena(int numero, char* cadena);
 
 int main() {
 
@@ -18,6 +19,7 @@ int main() {
         cout<< "2.Problema 2"<<endl;
         cout<< "3.Problema 3"<<endl;
         cout<< "4.Problema 4"<<endl;
+        cout<< "5.Problema 5"<<endl;
         cout<< "0. Salir"<<endl;
         cin>>opcion;
 
@@ -126,6 +128,14 @@ int main() {
 
         }
         break;
+        case 5:{
+            int numero = 123;
+            char cadena[12];  // Espacio suficiente para un entero con signo
+            convertirEnteroACadena(numero, cadena);
+            std::cout << "El numero convertido es: " << cadena << std::endl;
+
+        }
+        break;
 
         default:
             if(opcion!=0)
@@ -174,4 +184,35 @@ int convertirACadena(const char* cadena) {
         cadena++;
     }
     return numero;
+}
+void convertirEnteroACadena(int numero, char* cadena) {
+    int indice = 0;
+    bool esNegativo = false;
+
+    if (numero < 0) {
+        esNegativo = true;
+        numero = -numero;
+    }
+
+    do {
+        cadena[indice++] = (numero % 10) + '0';
+        numero /= 10;
+    } while (numero > 0);
+
+    if (esNegativo) {
+        cadena[indice++] = '-';
+    }
+
+    cadena[indice] = '\0';
+
+    // Invertir el arreglo para que quede en el orden correcto
+    int inicio = 0;
+    int fin = indice - 1;
+    while (inicio < fin) {
+        char temp = cadena[inicio];
+        cadena[inicio] = cadena[fin];
+        cadena[fin] = temp;
+        inicio++;
+        fin--;
+    }
 }
